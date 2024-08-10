@@ -25,12 +25,10 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    // console.log(task);
     if (task?.name) {
       const obj = {
         ...task,
       };
-      // console.log(obj);
       setFormData(obj);
     }
   }, [task, type]);
@@ -59,13 +57,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                   <Form.Control
                     type="text"
                     value={formData.name}
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        name: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    name="name"
+                    onChange={handleChange}
                     placeholder="Enter task name"
                     disabled={type !== "edit"}
                   />
@@ -77,13 +70,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                     as="textarea"
                     rows={3}
                     value={formData.content}
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        content: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    name="content"
+                    onChange={handleChange}
                     placeholder="Enter task content"
                     disabled={type !== "edit"}
                   />
@@ -95,13 +83,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                     as="textarea"
                     rows={2}
                     value={formData.remarks}
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        remarks: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    onChange={handleChange}
+                    name="remarks"
                     placeholder="Enter remarks (optional)"
                     disabled={type !== "edit"}
                   />
@@ -112,13 +95,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                   <Form.Control
                     type="time"
                     disabled={type !== "edit"}
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        taskTime: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    onChange={handleChange}
+                    name="taskTime"
                     value={formData.taskTime}
                   />
                 </Form.Group>
@@ -131,13 +109,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                     value={
                       formData.taskDate ? formatDate(formData.taskDate) : ""
                     }
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        taskDate: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    onChange={handleChange}
+                    name="taskDate"
                   />
                 </Form.Group>
 
@@ -146,13 +119,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                   <Form.Control
                     type="text"
                     placeholder="Enter location"
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        location: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    onChange={handleChange}
+                    name="location"
                     value={formData.location}
                     disabled={type !== "edit"}
                   />
@@ -162,13 +130,8 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                   <Form.Label>Creator</Form.Label>
                   <Form.Control
                     type="text"
-                    onChange={(e) => {
-                      const obj = {
-                        ...formData,
-                        creator: e.target.value,
-                      };
-                      setFormData(obj);
-                    }}
+                    onChange={handleChange}
+                    name="creator"
                     value={formData.creator}
                     placeholder="Enter creator name"
                     disabled={type !== "edit"}
@@ -189,11 +152,10 @@ function ModalComponent({ show, handleClose, type, task, editTask, getData }) {
                     ...formData,
                     taskDate: formatDate(formData.taskDate),
                   };
-                  // console.log(NewBody, formatDate(formData.taskDate));
+
                   await editTask(NewBody);
                   await getData();
                   handleClose();
-                  // editTask
                 }}
               >
                 Save changes
